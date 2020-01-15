@@ -3,6 +3,8 @@ package com.fri.code.grades.services.beans;
 import com.fri.code.grades.lib.GradeMetadata;
 import com.fri.code.grades.models.converters.GradeMetadataConverter;
 import com.fri.code.grades.models.entities.GradeMetadataEntity;
+import com.kumuluz.ee.streaming.common.annotations.StreamListener;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,13 +17,15 @@ public class GradeMetadataBean {
     @Inject
     EntityManager em;
 
-    public GradeMetadata calculatePoints(GradeMetadata grade){
-        grade.setTotalPoints(grade.getSolvedExercises()*50.0);
-        return grade;
+    Integer tmp;
+
+    @StreamListener(topics = {"4nqq16cf-grades"})
+    public void calculatePoints(ConsumerRecord<String, Integer> record){
+        //grade.setTotalPoints(grade.getSolvedExercises()*10.0);
+        tmp = record.value()*10;
     }
 
-    public GradeMetadata getGradeById(Integer id){
-        TypedQuery<GradeMetadataEntity> query = em.createNamedQuery("GradeMetadataEntity.getGradeById", GradeMetadataEntity.class);
-        return GradeMetadataConverter.toDTO(query.setParameter(1, id).getSingleResult());
+    public Integer getPoints(){
+        return tmp;
     }
 }
