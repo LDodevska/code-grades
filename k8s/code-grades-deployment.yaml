@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-grades-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-grades
+  template:
+    metadata:
+      labels:
+        app: code-grades
+    spec:
+      containers:
+        - image: ldodevska/code-grades:1.0-SNAPSHOT-1.1
+          name: code-grades
+          env:
+            - name: KUMULUZEE_DISCOVERY_CLUSTER
+              value: code
+            - name: KUMULUZEE_SERVER_BASEURL
+              value: http://34.67.168.202:8080
+          ports:
+            - containerPort: 8086
+              name: server
+              protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: code-grades
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: code-grades
