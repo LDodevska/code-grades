@@ -24,7 +24,7 @@ public class GradeMetadataResource {
     public Response getTotalPoints(){
         return Response.status(200).entity(gradeMetadataBean.getPoints()).build();
     }
-    
+
 
     public ApiError createApiError(String message, Response.Status responseStatus){
         ApiError error = new ApiError();
