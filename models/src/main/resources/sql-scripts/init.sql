@@ -1,1 +1,0 @@
-INSERT INTO grade_entity (total_points, solved_exercises) VALUES (0, 0)

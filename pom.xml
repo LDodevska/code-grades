@@ -12,7 +12,6 @@
         <module>api</module>
         <module>lib</module>
         <module>services</module>
-        <module>models</module>
     </modules>
 
     <properties>

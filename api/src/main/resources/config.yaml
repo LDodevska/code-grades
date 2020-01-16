@@ -7,12 +7,6 @@ kumuluzee:
     base-url: http://localhost:8086
     http:
       port: 8086
-  datasources:
-    - jndi-name: jdbc/GradeMetadataPS
-      connection-url: jdbc:postgresql://localhost:5436/code-grades
-      username: dbuser
-      password: postgres
-      max-pool-size: 20
   discovery:
     etcd:
       hosts: http://localhost:2379
@@ -20,9 +14,18 @@ kumuluzee:
     kafka:
       consumer:
         bootstrap-servers: moped-01.srvs.cloudkafka.com:9094
-        group-id: newer
         enable-auto-commit: true
         auto-commit-interval-ms: 1000
         auto-offset-reset: earliest
         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
         value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        acks: all
+        retries: 0
+        batch-size: 16384
+        linger-ms: 1
+        buffer-memory: 33554432
+        security-protocol: SASL_SSL
+        sasl-mechanism: SCRAM-SHA-256
+        session-timeout-ms: 30000
+        group-id: code
+        sasl-jaas-config: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="4nqq16cf" password="v4QobppxNg_Xe1Dhx4NrDTHlN5cfkxZZ";'
