@@ -24,20 +24,7 @@ public class GradeMetadataResource {
     public Response getTotalPoints(){
         return Response.status(200).entity(gradeMetadataBean.getPoints()).build();
     }
-
-//    @GET
-//    public Response getTotalPoints(@QueryParam("solvedExercises") Integer solvedExercises){
-//        try {
-//            GradeMetadata gradeMetadata = gradeMetadataBean.getGradeById(1);
-//            gradeMetadata.setSolvedExercises(solvedExercises);
-//            gradeMetadata = gradeMetadataBean.calculatePoints(gradeMetadata);
-//            return Response.status(Response.Status.OK).entity(gradeMetadata).build();
-//        }
-//        catch (Exception e) {
-//            ApiError error = createApiError(e.getMessage(), Response.Status.NOT_FOUND);
-//            return Response.status(Response.Status.NOT_FOUND).entity(error).build();
-//        }
-//    }
+    
 
     public ApiError createApiError(String message, Response.Status responseStatus){
         ApiError error = new ApiError();
